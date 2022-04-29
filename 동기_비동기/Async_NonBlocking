@@ -1,0 +1,49 @@
+import coding_prac.util.Counter;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+
+public class AsyncNonBlocking {
+    static class ChefA {
+        static int count = 5;
+        Consumer<String> cookForA = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("A: doing something.");
+            }
+            System.out.println("A: " + message);
+        };
+
+        Consumer<String> cookForB = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("B: doing something.");
+            }
+            System.out.println("B: " + message);
+        };
+
+        void doMyCook() {
+            cookForA.accept("I'm Chef A. And I'm done.");
+        }
+
+        Consumer<String> getCookForB() {
+            return cookForB;
+        }
+    }
+
+    static class ChefB {
+        CompletableFuture<Void> takeMyCookAndDoMyCook(Consumer<String> myCook) {
+            return CompletableFuture.runAsync(() -> myCook.accept("I'm Chef B. And I'm done."));
+        }
+    }
+
+    public static void main(String[] args) {
+        ChefA a = new ChefA();
+        ChefB b = new ChefB();
+        CompletableFuture<Void> joinPoint = b.takeMyCookAndDoMyCook(a.getCookForB());
+        a.doMyCook();
+        // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
+        joinPoint.join();
+        System.out.println("All Chef done.");
+    }
+}

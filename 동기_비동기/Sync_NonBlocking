@@ -1,0 +1,65 @@
+import coding_prac.util.Counter;
+
+import java.util.concurrent.*;
+import java.util.function.Consumer;
+
+public class SyncNonBlocking {
+    static int count = 3;
+
+    static class WaitA {
+        Consumer<String> toiletA = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("A: I'm Using The Toilet.");
+            }
+            System.out.println("A: " + message);
+        };
+
+        Consumer<String> toiletB = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("B: I'm Using The Toilet.");
+            }
+            System.out.println("B: " + message);
+        };
+
+        void fooFinished() {
+            toiletA.accept("I'm Good A. And I'm done.");
+        }
+
+        public Consumer<String> getToiletB() {
+            return toiletB;
+        }
+
+        void isWaitForBFinished(CompletableFuture<Void> joinPoint) {
+            // CompletableFuture의 get()과 join()의 차이
+            // CompletableFuture의 에러 처리 방법
+            while(!joinPoint.isDone()) {
+                try {
+                    Thread.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("A: wantToiletB B is still foo. Continue check what B is finished.");
+            }
+            System.out.println("A: wantToiletB B is done. I Go Toilet.");
+        }
+    }
+
+    static class WaitB {
+        CompletableFuture<Void> doFoo(Consumer<String> myWork) {
+            // CompletableFuture의 runAsync, supplyAsync 로직
+            return CompletableFuture.runAsync(() -> myWork.accept("I'm Good B. And I'm done."));
+        }
+    }
+
+    public static void main(String[] args) {
+        WaitA a = new WaitA();
+        WaitB b = new WaitB();
+        Consumer<String> wantToiletB = a.getToiletB();
+        // Thread를 직접 생성하지 않고 CompletableFuture를 바로 사용 할 경우 내부에서 어느 쓰레드풀을 사용하는지 ( ForkJoinPool )
+        CompletableFuture<Void> joinPoint = b.doFoo(wantToiletB);
+        a.isWaitForBFinished(joinPoint);
+        a.fooFinished();
+    }
+}

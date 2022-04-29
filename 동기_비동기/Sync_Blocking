@@ -1,0 +1,46 @@
+import coding_prac.util.Counter;
+
+import java.util.function.Consumer;
+
+public class SyncBlocking {
+    static int count = 2;
+
+    static class EatSomething {
+        Consumer<String> eatForA = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("A: doing something.");
+            }
+            System.out.println("A: " + message);
+        };
+
+        Consumer<String> cookForB = (message) -> {
+            for(int index = 0; index < count; index++) {
+                Counter.slow();
+                System.out.println("B: doing something.");
+            }
+            System.out.println("B: " + message);
+        };
+
+        void doEat() {
+            eatForA.accept("I'm A. And I Do Eat.");
+        }
+
+        Consumer<String> giveCookingB() {
+            return cookForB;
+        }
+    }
+
+    static class Cooking {
+        void cookingForA(Consumer<String> myWork) {
+            myWork.accept("I'm B. And I Do Cook.");
+        }
+    }
+
+    public static void main(String[] args) {
+        EatSomething eatSomething = new EatSomething();
+        Cooking cooking = new Cooking();
+        cooking.cookingForA(eatSomething.giveCookingB());
+        eatSomething.doEat();
+    }
+}

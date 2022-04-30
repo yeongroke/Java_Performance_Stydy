@@ -26,6 +26,7 @@
 ### 값 받아오는 메서드
 #### - get() : 단순히 값을 가져온다.
 #### - join() : get()메서드와 달리 join() 메서드는 일반적으로 complete 되지 않으면 unchecked exception 발생한다.
+##### ( 위에서 말한 unCheckedException와 CheckedException 차이점은 무엇인가? you know ? )
 ### 비동기로 작업 실행하기 메서드
 #### - runAsync() : 리턴 값이 없을 경우
 #### - supplyAsync() : 리턴 값이 있을 경우<br>

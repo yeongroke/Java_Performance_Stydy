@@ -8,7 +8,7 @@
 <br><br>
 #### 또한 CompletableFuture의 스레드는 ExecutorService을 사용해서 스레드를 직접 주입해서 사용이 가능하지만<br>
 #### 스레드를 직접 관리를 하지 않아도 Java 7 에서 나온 ForkJoinPool을 CompletableFuture 내부에서 사용하여 문제는 없다.
-#### 여기서 Thread와 ThreadPool 그리고 ForkJoinPool의 동작방식의 차이 그리고 장단점이 무엇인지 알 필요가 있다!!! ( 이것두 정리 예정! )
+#### ( 여기서 Thread와 ThreadPool 그리고 ForkJoinPool의 동작방식의 차이 그리고 장단점이 무엇인지 알 필요가 있다!!! 이것두 정리 할거임! )
 
 
 <br><br><br>

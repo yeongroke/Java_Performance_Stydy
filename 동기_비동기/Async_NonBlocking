@@ -42,7 +42,6 @@ public class AsyncNonBlocking {
         ChefB b = new ChefB();
         CompletableFuture<Void> joinPoint = b.takeMyCookAndDoMyCook(a.getCookForB());
         a.doMyCook();
-        // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
         joinPoint.join();
         System.out.println("All Chef done.");
     }

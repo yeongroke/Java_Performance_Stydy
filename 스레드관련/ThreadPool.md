@@ -6,6 +6,14 @@
 ### 기존 Thread 같은 경우에 갑자기 많은 요청이 들어올 시 요청 만큼 Thread를 생성하게 되며 CPU가 바빠져 메모리 사용량이 급격히 늘어나는 문제점이 있다, 이에 따라서 서비스 성능도 급격히 떨어진다.
 <br>
 
+
+
+### ThreadPool 동작 구조
+<img src="https://user-images.githubusercontent.com/42057185/166980043-02d860bc-8cd5-4586-a161-f783af49fccc.png"/>
+
+
+<br><br>
+
 ### ThreadPool 장점
 #### Thread를 사용했을 때 생겼던 생성/수거 비용이 발생하지 않는다.
 #### 처음에 생성하는 비용이 발생하지만 작업이 들어왔을 시 이미 Thread가 대기 중인 상태에서 바로 작업을 실행하기 때문에 작업 딜레이가 발생하지 않는다.
@@ -17,12 +25,12 @@
 #### ThreadPool을 사용하여 Thread를 미리 생성해서 작업을 분배하고 어느 특정 Thread의 작업이 먼저 끝난 경우에는 특정 Thread는 놀게된다, 이 문제점을 해결하기 위해 나온것이 ForkJoinPool이다.
 <br>
 
-### ThreadPool 동작 구조
-<img src="https://user-images.githubusercontent.com/42057185/166980043-02d860bc-8cd5-4586-a161-f783af49fccc.png"/>
+<img src="https://user-images.githubusercontent.com/42057185/166982298-61c46f1a-0f34-42a7-9a07-bbbe4830507e.png"/>
 
 
-<br><br>
+#### 위의 사진을 보면 ThreadPool 단점 2번째를 이해할 수 있다.
 
+<br>
 
 ### ThreadPool 기본 스레드 - ExecutorService 사용
 #### 초기 스레드 수 : ExecutorService 객체가 생성될 때 기본적으로 생성되는 스레드 수

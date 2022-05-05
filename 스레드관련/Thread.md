@@ -50,6 +50,7 @@
 ### 3. Atomic ( jdk 1.5 버전부터 지원 )
 #### 동작원리 : NonBlocking 방식을 사용하기 때문에 기존 Synchronized 방식의 스레드가 놀게되는 문제점을 방지할 수 있다.
 #### Atomic에는 Integer, String, Long, Array 등등 여러 타입이 존재한다.<br>
-### 4. 이뿐만 아니라 Concurrent 클래스를 사용하면 Thread safe하게 사용을 할 수 있다.
+### 4. 이뿐만 아니라 Concurrent 클래스를 사용하면 Thread safe하게 사용을 할 수 있다.<br>
+### 5. ThreadLocal 
 
 

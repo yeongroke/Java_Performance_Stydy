@@ -52,5 +52,7 @@
 #### Atomic에는 Integer, String, Long, Array 등등 여러 타입이 존재한다.<br>
 ### 4. 이뿐만 아니라 Concurrent 클래스를 사용하면 Thread safe하게 사용을 할 수 있다.<br>
 ### 5. ThreadLocal 
-
+#### 각각의 쓰레드가 자기만의 다른 차원에서 자기 구역을 찜꽁 했다고 보면된다 ( 마블의 멀티버스 개념 ? ㅋㅋㅋㅋ )
+#### 객체를 생성하고 set() , get() , remove() 로 사용
+#### Multi Thread 또는 ThreadPool 환경에서는 데이터를 사용하고 나서는 삭제해주어야 한다. ( 안그러면 기존 데이터가 참조될 수 있음 )
 

@@ -21,6 +21,7 @@
 ### CGLIB(bytecode 생성) <- 부트에서 기본
 #### 클래스에 대한 Proxy가 가능합니다 ( Spring Container에 의해 관리가 되는 Beans에 적용 가능 )
 #### 처음 호출 되었을때 동적으로 bytecode를 생성하여 이후 호출에서는 재사용합니다
+#### ( Dynamic Proxy에 비해서 예외(오류) 터지는 경우가 적다 )
 ### JDK(Dynamic) Proxy (Reflection) <- mvc 기본
 #### 인터페이스에 대한 Proxy만을 지원한다
 #### JVM에 의해서 Intercept한 다음 invoke 메써드를 호출할 때 JDK의 reflection을 이용하여 호출하는 동작원리

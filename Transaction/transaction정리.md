@@ -38,6 +38,8 @@
 ### @Transactional을 클래스 또는 메소드 필요한 곳에 명시를 하면 Spring AOP를 통해 타겟이 상속하고 있는 타겟(클래스나 메소드 등등) 또는 인터페이스를 상속받은 Proxy객체가 생성이된다.
 ### 이때 프록시 객체의 메소드를 호출하게 되면 프록시 객체가 가지고 있는 타겟 메소드의 호출과 끝으로 트랜잭션 처리를 수행한다.
 <img src="https://user-images.githubusercontent.com/42057185/169704937-6769f573-2ca8-484c-b532-7d59dda00abb.png"/>
+
+
 ### 위 사진과 같이 
 ### Caller에서 생성된 AOP Proxy를 타고, Proxy를 호출한다
 ### AOP Proxy는 트랜잭션 Advisor를 호출하며 이 과정에서 커밋이 되거나 롤백이 진행된다

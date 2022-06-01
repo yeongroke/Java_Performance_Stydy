@@ -1,1 +1,0 @@
-## singleton 패턴

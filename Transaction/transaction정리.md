@@ -85,6 +85,16 @@
 #### - 동일한 데이터에 대해서 동시에 두 개 이상의 트랜잭션이 수행 될 수 없다.
 <br><br>
 
+### Trasactional어노테이션의 ReadOnly 데이터베이스 별 동작 방식
+#### MySQL
+##### - MySQL에서는 readOnly 속성이 설정되면, 데이터베이스의 내부 최적화가 발생하여 쓰기 작업이 제한됩니다. 그러나 실제로는 readOnly 속성에 크게 의존하지 않습니다.
+#### PostgreSQL
+##### - PostgreSQL에서는 readOnly 트랜잭션이 설정되면 쓰기 작업을 시도할 때 오류가 발생합니다. 이는 readOnly 트랜잭션이 강력히 적용됨을 의미합니다.
+#### Oracle
+##### - Oracle 데이터베이스에서는 readOnly 트랜잭션이 설정되면 데이터 수정 작업이 불가능합니다. 이로 인해 읽기 작업에 대한 최적화가 발생합니다.
+#### SQL Server
+##### - SQL Server에서는 readOnly 트랜잭션이 설정되면 데이터베이스에서 잠금 메커니즘이 조정되어 읽기 작업에 대한 성능 최적화가 이루어집니다.
+
 ### 기본 propagation 값이 PROPAGATION_REQUIRED 라서 @Transactional 이 붙어 있는 메서드가 호출될 때 이미 시작된 Transaction가 있다면 새 Transaction를 만들지 않고 이미 시작된 Transaction에 참여한다.
 ### 아래와 같이 하는 경우에는 Exception이 터지는 경우 db insert 1, 2, 3, 4단계 모두 롤백이 된다.
 <img src="https://user-images.githubusercontent.com/42057185/169098125-0f194538-46e7-4ebc-b0e5-a06f0312b024.png"/>
